@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    position: relative;
+    top: 200px;
+    text-align: center;
+  }
+  
+  input[type="tel"], button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color:  #BDE3FF;
+    border: none;
+    width: 719px;
+height: 30px;
+border-radius: 5px;
+
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color:  #BDE3FF;
+    border: none;
+    width: 160px;
+    height: 50px;
+    border-radius: 5px;
+  }
+  
+  button {
+    background: #9747FF;
+
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }  
