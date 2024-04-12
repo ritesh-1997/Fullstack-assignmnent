@@ -17,7 +17,7 @@ public class UserInvestmentController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<backend.Common.Models.Strategy>> GetInvestments()
+    public async Task<List<backend.Common.Models.Strategy>> GetInvestmentStrategies()
     {
         var res = await new backend.core.UserInvestmentController().Stratagies();
         return res;
