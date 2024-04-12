@@ -9,6 +9,7 @@ namespace backend.Common.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public int Amount { get; set; }
         public List<Fund> Funds { get; set; }
     }
 
@@ -16,6 +17,7 @@ namespace backend.Common.Models
     {
         public string Name { get; set; }
         public int Percentage { get; set; }
+        public int Value { get; set; }
     }
 
 }

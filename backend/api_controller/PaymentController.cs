@@ -8,10 +8,17 @@ namespace api_controller;
 [Route("api/[controller]/[action]")]
 public class PaymentController : ControllerBase
 {
-    private string baseUrl = "http://localhost:8080";
-    public async Task<IActionResult> CreateOrder()
+    private readonly HttpClient _client;
+    public PaymentController(HttpClient client)
     {
-        var res = await new backend.Common.Core.PaymentController(baseUrl).CreatePayment(500);
+        _client = client;
+
+    }
+    private string baseUrl = "http://localhost:8080";
+    [HttpPost]
+    public async Task<IActionResult> CreateOrder([FromBody] Strategy strategy)
+    {
+        var res = await new backend.Common.Core.PaymentController(_client).CreatePayment(strategy);
         return Ok(res);
     }
 }

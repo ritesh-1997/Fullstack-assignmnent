@@ -17,10 +17,10 @@ public class UserInvestmentController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<backend.Common.Models.Strategy>> GetInvestmentStrategies()
+    public async Task<IActionResult> GetInvestmentStrategies()
     {
         var res = await new backend.core.UserInvestmentController().Stratagies();
-        return res;
+        return Ok(res);
     }
 
 }

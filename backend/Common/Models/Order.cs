@@ -18,9 +18,9 @@ public class InvestmentData
 {
     public string Id { get; set; }
     public string Fund { get; set; }
-    public decimal Amount { get; set; }
+    public int Amount { get; set; }
     public int Units { get; set; }
-    public decimal PricePerUnit { get; set; }
+    public double PricePerUnit { get; set; }
     public string Status { get; set; }
     public string PaymentId { get; set; }
     public string SubmittedAt { get; set; }
