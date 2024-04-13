@@ -128,3 +128,4 @@
 /Users/riteshgupta/Desktop/Development/Assignment/backend/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/riteshgupta/Desktop/Development/Assignment/backend/bin/Debug/net8.0/Common/Core/strategies.json
 /Users/riteshgupta/Desktop/Development/Assignment/backend/bin/Debug/net8.0/strategies.json
+/Users/riteshgupta/Desktop/Development/Assignment/backend/obj/Debug/net8.0/backend.sourcelink.json

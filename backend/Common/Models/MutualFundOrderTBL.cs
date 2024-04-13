@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Common.Models;
 
 public class MutualFundOrderTBL
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int orderid { get; set; }
     public string orderGuid { get; set; }
     public string fundName { get; set; }
