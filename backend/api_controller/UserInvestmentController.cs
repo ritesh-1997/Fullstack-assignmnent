@@ -10,11 +10,6 @@ namespace TodoApi.ApiController;
 [Route("api/[controller]/[action]")]
 public class UserInvestmentController : ControllerBase
 {
-    [HttpPost]
-    public async Task<string> Investment()
-    {
-        return await new backend.core.UserInvestmentController().Investment();
-    }
 
     [HttpGet]
     public async Task<IActionResult> GetInvestmentStrategies()

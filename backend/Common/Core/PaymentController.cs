@@ -49,6 +49,7 @@ namespace backend.Common.Core
                         phoneNumber = "1111",
                         amount = strategy.Amount,
                         status = true,
+                        strategyName = strategy.Name,
 
                     };
                     context.PaymentTBL.Add(payment);

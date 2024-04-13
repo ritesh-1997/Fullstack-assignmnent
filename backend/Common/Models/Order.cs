@@ -48,3 +48,9 @@ public class InvestmentDetails
     public DateTime SucceededAt { get; set; }
     public DateTime? FailedAt { get; set; } // Nullable DateTime to handle potential null value for failedAt
 }
+
+public class HoldingsRequest
+{
+    public string phoneNumber { get; set; }
+    public string strategyName { get; set; }
+}

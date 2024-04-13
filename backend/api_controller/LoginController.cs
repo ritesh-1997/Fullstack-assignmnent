@@ -10,12 +10,12 @@ namespace TodoApi.ApiController;
 [Route("api/[controller]/[action]")]
 public class LoginController : ControllerBase
 {
-    [HttpGet]
-    public async Task<string> Login(string phoneNumber)
+    [HttpGet("{phoneNumber}")]
+    public async Task<IActionResult> Login(string phoneNumber)
     {
         if (string.IsNullOrEmpty(phoneNumber))
-            return "Not a valid phone number";
+            return Ok("Not a valid phone number");
 
-        return await new backend.Common.Core.LoginController().Login(phoneNumber);
+        return Ok(await new backend.Common.Core.LoginController().Login(phoneNumber));
     }
 }

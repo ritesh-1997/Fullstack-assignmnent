@@ -10,16 +10,19 @@ namespace backend.Common.Core
 {
     public class HoldingsController
     {
-        public async Task<List<MutualFundOrderTBL>> GetUserHoldings(string phoneNumber)
+        public async Task<List<MutualFundOrderTBL>> GetUserHoldings(string phoneNumber, string strategyName)
         {
             try
             {
                 using var context = new Context();
-                var payments = await context.PaymentTBL.Where(x => x.phoneNumber == phoneNumber).ToListAsync();
+                var payments = await context.PaymentTBL.Where(x => x.phoneNumber == phoneNumber 
+                                                                && x.strategyName == strategyName)
+                                                                .ToListAsync();
                 var holdings = new List<MutualFundOrderTBL>();
                 foreach (var payment in payments)
                 {
-                    var holding = await context.MutualFundOrderTBL.Where(x => x.paymentid == payment.paymentid).ToListAsync();
+                    var holding = await context.MutualFundOrderTBL.Where(x => x.paymentid == payment.paymentid)
+                                                                    .ToListAsync();
                     holdings.AddRange(holding);
                 }
                 return holdings;

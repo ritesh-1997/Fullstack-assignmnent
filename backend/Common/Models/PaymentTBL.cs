@@ -18,6 +18,7 @@ namespace backend.Common.Models
         public bool status { get; set; }
         public string paymentid { get; set; }
         public string phoneNumber { get; set; }
+        public string strategyName { get; set; }
 
     }
 }
