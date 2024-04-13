@@ -1,0 +1,59 @@
+
+  
+  .container {
+    max-width: 800px;
+    margin: 3% auto;
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fund-section {
+    margin-bottom: 40px;
+    margin-left: 50px;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+  }
+  
+  .info {
+    display: flex;
+    grid-gap: 20px;
+  }
+ 
+  
+  .item h3 {
+    margin-top: 0;
+  }
+  
+  .item span {
+    margin: 0;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color:  #68df8287;
+    border: none;
+    width: fit-content;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  
+  .holdings
+    {
+        margin-top: 20px;
+        & span{
+        background-color:  #5d2dc687;
+        color: white;
+        }
+    }
+
+  .item p{
+    font-size: medium;
+    padding: 1px 0px 8px 0px;
+    margin: 0px 0 12px 0px;
+  }
+  

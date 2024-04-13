@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .profile-name {
+    font-weight: bold;
+    font-size: 18px;
+    position: absolute;
+    right: 2%;
+    margin-top: 2%;
+  }
+  
