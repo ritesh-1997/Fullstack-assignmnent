@@ -14,10 +14,14 @@ public class PaymentController : ControllerBase
         _client = client;
 
     }
-    private string baseUrl = "http://localhost:8080";
-    [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] Strategy strategy)
+    [HttpPost("{phoneNumber}")]
+    public async Task<IActionResult> CreateOrder([FromBody] Strategy strategy, string phoneNumber)
     {
+        if (strategy == null)
+        {
+            return BadRequest();
+        }
+        
         var res = await new backend.Common.Core.PaymentController(_client).CreatePayment(strategy);
         return Ok(res);
     }
