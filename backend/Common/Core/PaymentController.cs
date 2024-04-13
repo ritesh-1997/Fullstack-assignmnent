@@ -85,7 +85,7 @@ namespace backend.Common.Core
                     throw new HttpRequestException($"Error sending payment request: {response.StatusCode}");
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
 
                 throw;

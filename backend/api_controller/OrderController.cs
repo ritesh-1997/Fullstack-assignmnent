@@ -10,9 +10,11 @@ namespace backend.api_controller
     [Route("api/[controller]/[action]")]
     public class OrderController : ControllerBase
     {
-        // [HttpGet]
-        // public async Task<IActionResult> GetHoldings(string phoneNumber){
-        //     return await GetHoldingsAsync(phoneNumber
-        // }
+        [HttpGet]
+        public async Task<IActionResult> GetHoldings(string phoneNumber)
+        {
+            var res = await new backend.Common.Core.HoldingsController().GetUserHoldings(phoneNumber);
+            return Ok(res);
+        }
     }
 }
