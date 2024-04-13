@@ -21,3 +21,14 @@ export interface IInvestmentStrategy {
     percentage: number;
   }
   
+
+  export interface IHoldingsResponse {
+    strategyName: string;
+    holdingDetails: IHoldingDetails[];
+  }
+  
+  export interface IHoldingDetails {
+    fundName: string;
+    investmentAmount: number; // Use number for monetary values in Angular
+    marketValue: number;
+  }

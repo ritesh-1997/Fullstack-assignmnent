@@ -31,7 +31,7 @@ public class InvestmentData
 public class FundValue
 {
     public string Name { get; set; }
-    public decimal MarketValue { get; set; }
+    public double marketValue { get; set; }
 }
 
 
@@ -53,4 +53,17 @@ public class HoldingsRequest
 {
     public string phoneNumber { get; set; }
     public string strategyName { get; set; }
+}
+
+public class HoldingsResponse
+{
+    public string strategyName { get; set; }
+    public List<HoldingDetails> holdingDetails { get; set; } = new List<HoldingDetails>();
+}
+
+public class HoldingDetails
+{
+    public string fundName { get; set; }
+    public double investmentAmount { get; set; }
+    public double marketValue { get; set; }
 }

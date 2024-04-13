@@ -11,6 +11,12 @@ namespace backend.api_controller
     [Route("api/[controller]/[action]")]
     public class OrderController : ControllerBase
     {
+        private readonly HttpClient _client;
+        public OrderController(HttpClient client)
+        {
+            _client = client;
+
+        }
         [HttpPost]
         public async Task<IActionResult> GetHoldings([FromBody] HoldingsRequest holdingsRequest)
         {
@@ -21,7 +27,7 @@ namespace backend.api_controller
             if (string.IsNullOrWhiteSpace(holdingsRequest.strategyName))
                 return BadRequest("Strategy Name is required");
 
-            var res = await new backend.Common.Core.HoldingsController().GetUserHoldings(holdingsRequest.phoneNumber, holdingsRequest.strategyName);
+            var res = await new backend.Common.Core.HoldingsController(_client).GetUserHoldings(holdingsRequest.phoneNumber, holdingsRequest.strategyName);
             return Ok(res);
         }
     }

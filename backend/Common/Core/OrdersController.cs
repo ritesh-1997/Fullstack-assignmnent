@@ -41,5 +41,30 @@ namespace backend.Common.Core
             }
             return null;
         }
+
+        public async Task<FundValue> GetFundMarketValue(string fundName)
+        {
+            try
+            {
+                var url = $"http://localhost:8081/market-value/{fundName}";
+                var response = await _client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var contentString = await response.Content.ReadAsStringAsync();
+                    // Assuming the response body is a JSON string containing the market value
+                    return JsonConvert.DeserializeObject<FundValue>(contentString);
+                }
+                else
+                {
+                    throw new Exception($"Failed to fetch market value. Status code: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching market value: {ex.Message}");
+                return null; // Re-throw the exception for further handling (optional)
+            }
+        }
     }
 }
