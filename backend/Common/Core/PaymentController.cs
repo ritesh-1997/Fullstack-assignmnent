@@ -21,12 +21,13 @@ namespace backend.Common.Core
             _configuration = configuration;
 
         }
-        public async Task<PaymentResponse> CreatePayment(Strategy strategy)
+        public async Task<PaymentResponse> CreatePayment(Strategy strategy, string phoneNumber)
         {
             try
             {
                 using var context = new Context(_configuration);
                 var url = "http://localhost:8080/payment";
+                var urlDocker = "http://host.docker.internal:8080/payment";
                 var paymentRequest = new PaymentRequest()
                 {
                     AccountNumber = "11200222",
@@ -38,7 +39,7 @@ namespace backend.Common.Core
                 var content = new StringContent(JsonConvert.SerializeObject(paymentRequest), Encoding.UTF8, "application/json");
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await _client.PostAsync(url, content);
+                var response = await _client.PostAsync(urlDocker, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -48,7 +49,7 @@ namespace backend.Common.Core
                     var payment = new PaymentTBL()
                     {
                         paymentid = paymentId,
-                        phoneNumber = "1111",
+                        phoneNumber = phoneNumber,
                         amount = strategy.Amount,
                         status = true,
                         strategyName = strategy.Name,
@@ -74,7 +75,7 @@ namespace backend.Common.Core
                                 fundName = fundResponse.Data.Fund,
                                 amount = fundResponse.Data.Amount,
                                 units = fundResponse.Data.Units,
-                                status = fundResponse.Data.Status == "Submitted" ? true : false,
+                                status = fundResponse.Data.SucceededAt != null ? true : false,
                                 pricePerUnit = fundResponse.Data.PricePerUnit,
                             };
                             context.MutualFundOrderTBL.Add(investment);

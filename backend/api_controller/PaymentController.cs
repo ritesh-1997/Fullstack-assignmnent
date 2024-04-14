@@ -24,7 +24,7 @@ public class PaymentController : ControllerBase
             return BadRequest();
         }
 
-        var res = await new backend.Common.Core.PaymentController(_client, _configuration).CreatePayment(strategy);
+        var res = await new backend.Common.Core.PaymentController(_client, _configuration).CreatePayment(strategy,phoneNumber);
         return Ok(res);
     }
 }

@@ -2761,11 +2761,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/riteshgupta/Desktop/Development/try/Fullstack-assignmnent/backend/backend.csproj",
+      "projectUniqueName": "/Users/riteshgupta/Desktop/Development/Assignment/backend/backend.csproj",
       "projectName": "backend",
-      "projectPath": "/Users/riteshgupta/Desktop/Development/try/Fullstack-assignmnent/backend/backend.csproj",
+      "projectPath": "/Users/riteshgupta/Desktop/Development/Assignment/backend/backend.csproj",
       "packagesPath": "/Users/riteshgupta/.nuget/packages/",
-      "outputPath": "/Users/riteshgupta/Desktop/Development/try/Fullstack-assignmnent/backend/obj/",
+      "outputPath": "/Users/riteshgupta/Desktop/Development/Assignment/backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/riteshgupta/.nuget/NuGet/NuGet.Config"

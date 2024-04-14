@@ -15,6 +15,9 @@ public class MutualFundOrderTBL
     public double units { get; set; }
     public bool status { get; set; }
     public double pricePerUnit { get; set; }
+    public DateTime? succeededAt { get; set; }
+    public DateTime? failedAt { get; set; }
+
     public DateTime createdDate { get; set; } = DateTime.UtcNow;
     public DateTime updatedDate { get; set; } = DateTime.UtcNow;
 

@@ -18,7 +18,8 @@ namespace backend.Common.Core
         }
         public async Task<InvestmentResponse> BuyFunds(InvestmentRequest investmentRequest)
         {
-            var url = "http://host.docker.internal:8081/order";
+            var url = "http://localhost:8081/order";
+            var urlDocker = "http://host.docker.internal:8081/order";
 
             var data = new StringContent(
                 JsonConvert.SerializeObject(investmentRequest),
@@ -27,7 +28,7 @@ namespace backend.Common.Core
 
             try
             {
-                var response = await _client.PostAsync(url, data);
+                var response = await _client.PostAsync(urlDocker, data);
 
                 response.EnsureSuccessStatusCode(); // Throw exception for non-200 status codes
 
@@ -46,9 +47,10 @@ namespace backend.Common.Core
         {
             try
             {
-                var url = $"http://host.docker.internal:8081/market-value/{fundName}";
+                var url = $"http://localhost:8081/market-value/{fundName}";
+                var urlDocker = $"http://host.docker.internal:8081/market-value/{fundName}";
                 Console.WriteLine(url);
-                var response = await _client.GetAsync(url);
+                var response = await _client.GetAsync(urlDocker);
 
                 if (response.IsSuccessStatusCode)
                 {

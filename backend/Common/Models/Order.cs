@@ -58,6 +58,8 @@ public class HoldingsRequest
 public class HoldingsResponse
 {
     public string strategyName { get; set; }
+    public double investmentAmount { get; set; }
+    public double investmentMarketValue { get; set; }
     public List<HoldingDetails> holdingDetails { get; set; } = new List<HoldingDetails>();
 }
 
