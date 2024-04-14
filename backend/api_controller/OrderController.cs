@@ -12,9 +12,11 @@ namespace backend.api_controller
     public class OrderController : ControllerBase
     {
         private readonly HttpClient _client;
-        public OrderController(HttpClient client)
+        private readonly IConfiguration _configuration;
+        public OrderController(HttpClient client, IConfiguration configuration)
         {
             _client = client;
+            _configuration = configuration;
 
         }
         [HttpPost]
@@ -27,7 +29,7 @@ namespace backend.api_controller
             if (string.IsNullOrWhiteSpace(holdingsRequest.strategyName))
                 return BadRequest("Strategy Name is required");
 
-            var res = await new backend.Common.Core.HoldingsController(_client).GetUserHoldings(holdingsRequest.phoneNumber, holdingsRequest.strategyName);
+            var res = await new backend.Common.Core.HoldingsController(_client, _configuration).GetUserHoldings(holdingsRequest.phoneNumber, holdingsRequest.strategyName);
             return Ok(res);
         }
     }

@@ -9,9 +9,14 @@ namespace backend.Common.Core;
 
 public class LoginController
 {
+    private IConfiguration _configuration;
+    public LoginController(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     public async Task<string> Login(string phoneNumber)
     {
-        using var context = new Context();
+        using var context = new Context(_configuration);
         var user = await context.UserTBL.FirstOrDefaultAsync(x => x.phoneNumber == phoneNumber);
         if (user == null)
         {

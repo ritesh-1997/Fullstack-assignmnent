@@ -6,21 +6,6 @@ namespace backend.core;
 
 public class UserInvestmentController
 {
-    public async Task<string> Investment()
-    {
-        try
-        {
-            using var db = new Context();
-            var x = await db.UserTBL.FirstOrDefaultAsync(x => x.phoneNumber == "123");
-            return "Invested";
-
-        }
-        catch (System.Exception ex)
-        {
-
-            throw;
-        }
-    }
 
 
     public async Task<List<Strategy>> Stratagies()

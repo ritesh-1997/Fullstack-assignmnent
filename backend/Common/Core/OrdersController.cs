@@ -18,7 +18,7 @@ namespace backend.Common.Core
         }
         public async Task<InvestmentResponse> BuyFunds(InvestmentRequest investmentRequest)
         {
-            var url = "http://localhost:8081/order";
+            var url = "http://host.docker.internal:8081/order";
 
             var data = new StringContent(
                 JsonConvert.SerializeObject(investmentRequest),
@@ -46,7 +46,8 @@ namespace backend.Common.Core
         {
             try
             {
-                var url = $"http://localhost:8081/market-value/{fundName}";
+                var url = $"http://host.docker.internal:8081/market-value/{fundName}";
+                Console.WriteLine(url);
                 var response = await _client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)

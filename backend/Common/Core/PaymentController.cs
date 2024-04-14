@@ -13,17 +13,19 @@ namespace backend.Common.Core
     public class PaymentController
     {
         private readonly HttpClient _client;
+        private IConfiguration _configuration;
 
-        public PaymentController(HttpClient client)
+        public PaymentController(HttpClient client, IConfiguration configuration)
         {
             _client = client;
+            _configuration = configuration;
 
         }
         public async Task<PaymentResponse> CreatePayment(Strategy strategy)
         {
             try
             {
-                using var context = new Context();
+                using var context = new Context(_configuration);
                 var url = "http://localhost:8080/payment";
                 var paymentRequest = new PaymentRequest()
                 {

@@ -9,9 +9,11 @@ namespace api_controller;
 public class PaymentController : ControllerBase
 {
     private readonly HttpClient _client;
-    public PaymentController(HttpClient client)
+    private readonly IConfiguration _configuration;
+    public PaymentController(HttpClient client, IConfiguration configuration)
     {
         _client = client;
+        _configuration = configuration;
 
     }
     [HttpPost("{phoneNumber}")]
@@ -21,8 +23,8 @@ public class PaymentController : ControllerBase
         {
             return BadRequest();
         }
-        
-        var res = await new backend.Common.Core.PaymentController(_client).CreatePayment(strategy);
+
+        var res = await new backend.Common.Core.PaymentController(_client, _configuration).CreatePayment(strategy);
         return Ok(res);
     }
 }

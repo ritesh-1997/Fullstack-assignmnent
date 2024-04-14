@@ -11,15 +11,18 @@ namespace backend.Common.Core
     public class HoldingsController
     {
         private readonly HttpClient _client;
-        public HoldingsController(HttpClient client)
+        private readonly IConfiguration _configuration;
+
+        public HoldingsController(HttpClient client, IConfiguration configuration)
         {
             _client = client;
+            _configuration = configuration;
         }
         public async Task<HoldingsResponse> GetUserHoldings(string phoneNumber, string strategyName)
         {
             try
             {
-                using var context = new Context();
+                using var context = new Context(_configuration);
                 var payments = await context.PaymentTBL.Where(x => x.phoneNumber == phoneNumber
                                                                 && x.strategyName == strategyName)
                                                                 .ToListAsync();
