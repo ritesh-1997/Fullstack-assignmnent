@@ -1,0 +1,108 @@
+
+  
+  .container {
+    max-width: 800px;
+    margin: 3% auto;
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fund-section {
+    margin-bottom: 40px;
+    margin-left: 50px;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+  }
+  
+  .info {
+    display: flex;
+    grid-gap: 20px;
+  }
+ 
+  
+  .item h3 {
+    margin-top: 0;
+  }
+
+  .amount input{
+    padding: 20px;
+    width: 300px;
+    font-size: 30px;
+    background-color: rgb(99, 184, 254);
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .item {
+    margin: 0;
+    padding: 0px 20px;
+    font-size: 16px;
+    background-color:  #68df8287;
+    border: none;
+    width: fit-content;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  .list tr {
+     margin: 20px;
+     padding: 20px;
+  }
+
+  
+  .holdings
+    {
+        margin-top: 24px;
+        & span{
+        background-color:  #5d2dc687;
+        color: white;
+        }
+    }
+
+  .item p{
+    font-size: medium;
+    padding: 1px 0px 8px 0px;
+    margin: 0px 0 12px 0px;
+  }
+  .seeHolding{
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 5%;
+    margin-top: 0%;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color:  #27037b87;
+    border: none;
+    width: fit-content;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  .transact{
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 5%;
+    margin-top: 0%;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color:  #27037b87;
+    border: none;
+    width: fit-content;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  table{
+    width: 400px;
+  }
+ tbody tr{
+    width: 300px ;
+    
+ }
+ tbody tr td span{
+    padding: 10px 20px;
+    margin: 20px;
+}

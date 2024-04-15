@@ -1,8 +1,8 @@
 <div class="container">
     <div class="input-container">
-      <input type="tel" id="phoneNumber" placeholder="Enter your phone number">
+      <input type="tel" id="phoneNumber" placeholder="Enter your phone number" [(ngModel)] ="phoneNumber">
     </div>
     <div class="button-container">
-      <button id="loginButton">Login</button>
+      <button id="loginButton" (click) ="login(phoneNumber)">Login</button>
     </div>
   </div>

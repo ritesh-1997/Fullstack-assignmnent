@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class HoldingsService {
 
   constructor(private http:HttpClient) { }
-  getHoldings(payload:any,phoneNumber:string){
+  getHoldings(payload:any,phoneNumber:string):Observable<IUserHoldingsRequest>{
     return this.http.post<IUserHoldingsRequest>(`http://localhost:5151/api/order/GetHoldings/${phoneNumber}`,payload);
 
   }

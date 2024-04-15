@@ -1,17 +1,22 @@
-<p>transact works!</p>
-<div>
-    <div class="form-group">
+<div class="container" *ngIf="investmentStrategies != null">
+    <div class="amount">
         <input type="number" class="form-control" placeholder=" Enter amount"
         [(ngModel)] = "strategyInvestment.amount"/>
     </div>
-
-    <div>Arbitary Strategy</div>
-    <div>
+    <ng-select
+    [items]="stratagies"
+    bindLabel="value" 
+    bindValue="id" 
+    [(ngModel)]="selectedStrategyValue"
+    >
+    </ng-select>
+    
+    <div style="margin: 10px;">
         <table>
-            <tbody>
-                <tr *ngFor="let fund of strategyInvestment.funds">
-                    <td><span>{{fund.fundName}}</span></td>
-                    <td><span>{{fund.fundPercent*strategyInvestment.amount}}</span></td>
+            <tbody >
+                <tr class="row" *ngFor="let fund of strategyInvestment.funds">
+                    <td height="40px"><span>{{fund.fundName}}</span></td>
+                    <td height="40px"><span class="item">{{fund.fundPercent*strategyInvestment.amount}}</span></td>
                 </tr>
             </tbody>
         </table>

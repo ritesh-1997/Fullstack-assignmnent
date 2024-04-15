@@ -12,10 +12,18 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  phoneNumber:string = '';
   ngOnInit() {
+    this.phoneNumber = localStorage.getItem('Authorization')?.toString() || '';
+    if(this.phoneNumber==''){
+      this.router.navigate(['/login']);
+    }
+    else{
+      this.router.navigate(['/home']);
       this.getHoldings();
+    }
   }
-  phoneNumber:string = '1111';
+  
   userHoldingsRequest:IUserHoldingsRequest = {
     phoneNumber: '11111111111111111111',
     data: []
@@ -27,9 +35,14 @@ export class HomeComponent implements OnInit {
  }
 
  seeholdings(phoneNumber:string = '',strategyName:string=''){
-  this.router.navigate(['/holding'], { queryParams: { phoneNumber: '1111', strategyName: 'Arbitrage Strategy' } })
+  this.router.navigate(['/holding'], { queryParams: { phoneNumber: phoneNumber, strategyName: strategyName } })
 
  }
+
+ openTransact(){
+  this.router.navigate(['/transact'])
+ }
+
  getHoldings(){
   this.holderService.getHoldings({},this.phoneNumber).subscribe((response:any)=>{
     this.userHoldingsRequest = response;

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.Common.Models;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TodoApi.ApiController;
@@ -15,12 +17,12 @@ public class LoginController : ControllerBase
     {
         _configuration = configuration;
     }
-    [HttpGet("{phoneNumber}")]
-    public async Task<IActionResult> Login(string phoneNumber)
+    [HttpPost]
+    public async Task<IActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
     {
-        if (string.IsNullOrEmpty(phoneNumber))
+        if (string.IsNullOrEmpty(userLoginRequest.phoneNumber))
             return Ok("Not a valid phone number");
 
-        return Ok(await new backend.Common.Core.LoginController(_configuration).Login(phoneNumber));
+        return Ok(await new backend.Common.Core.LoginController(_configuration).Login(userLoginRequest.phoneNumber));
     }
 }

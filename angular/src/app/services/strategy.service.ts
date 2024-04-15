@@ -12,8 +12,8 @@ import { of } from 'rxjs';
 export class StrategyService {
 
   constructor(private http:HttpClient) { }
-  investmentStrategies():Observable<IInvestmentStrategy[]> { 
-    return this.http.get<IInvestmentStrategy[]>(`http://localhost:5151/api/userinvestment/getinvestmentstrategies`)
+  investmentStrategies():Observable<any> { 
+    return this.http.get(`http://localhost:5151/api/userinvestment/getinvestmentstrategies`)
   }
   }
 

@@ -16,7 +16,7 @@
                   <span>${{strategy.investmentMarketValue}}</span>
                 </div>
                 <div class="item holdings">
-                  <button class="seeHolding" (click)="seeholdings()">See Holdings</button>
+                  <button class="seeHolding" (click)="seeholdings(phoneNumber,strategy.strategyName)">See Holdings</button>
                 </div>
               </div>
             </div>
@@ -26,5 +26,5 @@
       </table>
       
     </section>
-    <button class="transact">Transact</button>
+    <button class="transact" (click)="openTransact()">Transact</button>
   </div>
