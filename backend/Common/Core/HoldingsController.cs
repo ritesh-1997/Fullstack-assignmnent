@@ -18,7 +18,7 @@ namespace backend.Common.Core
             _client = client;
             _configuration = configuration;
         }
-        public async Task<HoldingsResponse> GetUserHoldings(string phoneNumber, string strategyName)
+        public async Task<HoldingsResponse> GetUserHolding(string phoneNumber, string strategyName)
         {
             try
             {
@@ -64,10 +64,37 @@ namespace backend.Common.Core
                                                                 marketValue = g.Sum(x => x.marketValue)
                                                             })
                                                             .ToList();
+                holdingsResponse.investmentAmount = holdingsResponse.holdingDetails.Sum(x => x.investmentAmount);
+                holdingsResponse.investmentMarketValue = holdingsResponse.holdingDetails.Sum(x => x.marketValue);
                 return holdingsResponse;
             }
             catch (Exception ex) { }
             return null;
         }
+
+        public async Task<UserHolidings> GetUserHoldings(string phoneNumber)
+        {
+            try
+            {
+                using var context = new Context(_configuration);
+                var payments = await context.PaymentTBL.Where(x => x.phoneNumber == phoneNumber)
+                                                                .ToListAsync();
+
+                var strategies = payments.Select(x => x.strategyName).Distinct().ToList();
+                var userHolidings = new UserHolidings();
+                userHolidings.phoneNumber = phoneNumber;
+                foreach (var strategy in strategies)
+                {
+                    var holding = await GetUserHolding(phoneNumber, strategy);
+                    if (holding != null)
+                        userHolidings.data.Add(holding);
+                }
+
+                return userHolidings;
+            }
+            catch (Exception ex) { }
+            return null;
+        }
+
     }
 }

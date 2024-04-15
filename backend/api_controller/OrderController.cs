@@ -20,7 +20,7 @@ namespace backend.api_controller
 
         }
         [HttpPost]
-        public async Task<IActionResult> GetHoldings([FromBody] HoldingsRequest holdingsRequest)
+        public async Task<IActionResult> GetHolding([FromBody] HoldingsRequest holdingsRequest)
         {
             if (holdingsRequest == null)
                 return BadRequest("The request is null");
@@ -29,7 +29,19 @@ namespace backend.api_controller
             if (string.IsNullOrWhiteSpace(holdingsRequest.strategyName))
                 return BadRequest("Strategy Name is required");
 
-            var res = await new backend.Common.Core.HoldingsController(_client, _configuration).GetUserHoldings(holdingsRequest.phoneNumber, holdingsRequest.strategyName);
+            var res = await new backend.Common.Core.HoldingsController(_client, _configuration).GetUserHolding(holdingsRequest.phoneNumber, holdingsRequest.strategyName);
+            return Ok(res);
+        }
+
+        [HttpPost("{phoneNumber}")]
+        public async Task<IActionResult> GetHoldings(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return BadRequest("The request is null");
+
+
+            var res = await new backend.Common.Core.HoldingsController(_client, _configuration).GetUserHoldings(phoneNumber);
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(res));
             return Ok(res);
         }
     }

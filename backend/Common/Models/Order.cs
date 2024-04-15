@@ -55,12 +55,26 @@ public class HoldingsRequest
     public string strategyName { get; set; }
 }
 
+public class UserHolidings
+{
+    public UserHolidings()
+    {
+        data = new List<HoldingsResponse>();
+    }
+    public string phoneNumber { get; set; }
+    public List<HoldingsResponse> data { get; set; }
+}
+
 public class HoldingsResponse
 {
+    public HoldingsResponse()
+    {
+        holdingDetails = new List<HoldingDetails>();
+    }
     public string strategyName { get; set; }
     public double investmentAmount { get; set; }
     public double investmentMarketValue { get; set; }
-    public List<HoldingDetails> holdingDetails { get; set; } = new List<HoldingDetails>();
+    public List<HoldingDetails> holdingDetails { get; set; }
 }
 
 public class HoldingDetails

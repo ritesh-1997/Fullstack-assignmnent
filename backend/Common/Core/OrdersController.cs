@@ -28,7 +28,7 @@ namespace backend.Common.Core
 
             try
             {
-                var response = await _client.PostAsync(urlDocker, data);
+                var response = await _client.PostAsync(url, data);
 
                 response.EnsureSuccessStatusCode(); // Throw exception for non-200 status codes
 
@@ -50,7 +50,7 @@ namespace backend.Common.Core
                 var url = $"http://localhost:8081/market-value/{fundName}";
                 var urlDocker = $"http://host.docker.internal:8081/market-value/{fundName}";
                 Console.WriteLine(url);
-                var response = await _client.GetAsync(urlDocker);
+                var response = await _client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
