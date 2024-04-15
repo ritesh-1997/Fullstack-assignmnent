@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Common.Models;
+using backend.Middleware;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.api_controller
 {
     [ApiController]
+    [AuthenticateUser]
     [Route("api/[controller]/[action]")]
     public class OrderController : ControllerBase
     {

@@ -8,8 +8,12 @@ import { IHoldingsResponse } from '../Models/interfaces';
 export class HoldingsService {
 
   constructor(private http:HttpClient) { }
-  getHoldings(payload:any){
-    return this.http.post<IHoldingsResponse[]>(`http://localhost:5151/api/order/GetHoldings`,payload);
+  getHoldings(payload:any,phoneNumber:string){
+    return this.http.post<IHoldingsResponse[]>(`http://localhost:5151/api/order/GetHoldings/${phoneNumber}`,payload);
+
+  }
+  getHolding(payload:any){
+    return this.http.post<IHoldingsResponse[]>(`http://localhost:5151/api/order/GetHolding`,payload);
 
   }
 }
