@@ -21,9 +21,14 @@ export interface IInvestmentStrategy {
     percentage: number;
   }
   
-
+export interface IUserHoldingsRequest{
+  phoneNumber: string;
+  data:IHoldingsResponse[];
+}
   export interface IHoldingsResponse {
     strategyName: string;
+    investmentAmount: number;
+    investmentMarketValue:number;
     holdingDetails: IHoldingDetails[];
   }
   

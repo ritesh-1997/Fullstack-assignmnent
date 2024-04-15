@@ -44,7 +44,7 @@
   
   .holdings
     {
-        margin-top: 20px;
+        margin-top: 24px;
         & span{
         background-color:  #5d2dc687;
         color: white;
@@ -55,5 +55,32 @@
     font-size: medium;
     padding: 1px 0px 8px 0px;
     margin: 0px 0 12px 0px;
+  }
+  .seeHolding{
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 5%;
+    margin-top: 0%;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color:  #27037b87;
+    border: none;
+    width: fit-content;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  .transact{
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 5%;
+    margin-top: 0%;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color:  #27037b87;
+    border: none;
+    width: fit-content;
+    border-radius: 5px;
+    font-weight: bold;
   }
   

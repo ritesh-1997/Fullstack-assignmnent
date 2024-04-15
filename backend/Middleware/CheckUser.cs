@@ -15,10 +15,10 @@ namespace backend.Middleware
             {
 
             }
-            if(context.HttpContext.Request.Headers.ContainsKey("Authorization")){
-                var userId = context.HttpContext.Request.Headers["Authorization"].ToString();
-                context.Controller.
-            }
+            // if(context.HttpContext.Request.Headers.ContainsKey("Authorization")){
+            //     var userId = context.HttpContext.Request.Headers["Authorization"].ToString();
+            //     context.Controller.
+            // }
             
 
             base.OnActionExecuting(context);
