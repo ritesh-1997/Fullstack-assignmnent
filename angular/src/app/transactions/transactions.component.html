@@ -1,1 +1,36 @@
-<p>transactions works!</p>
+<!-- <div *ngIf="isSuccess; else #paymentfailed">
+    <button class="successfull">Payment Successfull</button>
+</div>
+<ng-template #paymentfailed>
+    <button class="failed">Payment Failed</button>
+</ng-template> -->
+
+
+<!-- <ng-template #successTemplate>
+    <button class="successfull">Payment Successfull</button>
+  </ng-template>
+  
+  <ng-template #paymentFailedTemplate>
+    <button class="failed">Payment Failed</button>
+  </ng-template>
+  
+  <div *ngIf="isSuccess; then successTemplate else paymentFailedTemplate">
+    </div> -->
+
+    <div class="card container">
+        <h2>Transaction Status</h2>
+        <p>This is where you can display additional information about the transaction.</p>
+        <div *ngIf="isSuccess; then successTemplate else paymentFailedTemplate">
+        </div>
+      </div>
+      
+      <ng-template #successTemplate>
+        <button class="successfull">Payment Successfull</button>
+        <br>
+        <span class="">Payment Link : {{pspReference}}</span>
+      </ng-template>
+      
+      <ng-template #paymentFailedTemplate>
+        <button class="failed">Payment Failed</button>
+      </ng-template>
+      

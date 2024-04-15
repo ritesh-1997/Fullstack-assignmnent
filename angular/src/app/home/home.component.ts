@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   phoneNumber:string = '';
   ngOnInit() {
     this.phoneNumber = localStorage.getItem('Authorization')?.toString() || '';
+
     if(this.phoneNumber==''){
       this.router.navigate(['/login']);
     }

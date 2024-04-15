@@ -39,7 +39,7 @@ namespace backend.Common.Core
                 var content = new StringContent(JsonConvert.SerializeObject(paymentRequest), Encoding.UTF8, "application/json");
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await _client.PostAsync(url, content);
+                var response = await _client.PostAsync(urlDocker, content);
 
                 if (response.IsSuccessStatusCode)
                 {

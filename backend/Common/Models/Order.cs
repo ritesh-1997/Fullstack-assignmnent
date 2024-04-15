@@ -3,7 +3,7 @@ namespace backend.Common.Models;
 public class InvestmentRequest
 {
     public string Fund { get; set; }
-    public decimal Amount { get; set; }
+    public double Amount { get; set; }
     public string PaymentId { get; set; }
 }
 

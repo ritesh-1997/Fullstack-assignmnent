@@ -1,4 +1,5 @@
-<div class="container" *ngIf="investmentStrategies != null">
+<div class="container" *ngIf="investmentStrategies != null && investmentStrategies.length>0 ">
+    <!-- <p>{{stratagies.id}}</p> -->
     <div class="amount">
         <input type="number" class="form-control" placeholder=" Enter amount"
         [(ngModel)] = "strategyInvestment.amount"/>
@@ -8,6 +9,8 @@
     bindLabel="value" 
     bindValue="id" 
     [(ngModel)]="selectedStrategyValue"
+    (change)="changeStrategy($event)"
+
     >
     </ng-select>
     
@@ -15,8 +18,8 @@
         <table>
             <tbody >
                 <tr class="row" *ngFor="let fund of strategyInvestment.funds">
-                    <td height="40px"><span>{{fund.fundName}}</span></td>
-                    <td height="40px"><span class="item">{{fund.fundPercent*strategyInvestment.amount}}</span></td>
+                    <td height="40px"><span>{{fund.name}}</span></td>
+                    <td height="40px"><span class="item">{{fund.percentage*strategyInvestment.amount}}</span></td>
                 </tr>
             </tbody>
         </table>

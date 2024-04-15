@@ -1,11 +1,12 @@
 export interface IStrategyInvestment{
-    strategyName: string;
+    name: string;
+    description: string;
     amount: number;
     funds:IFunds[];
 }
 export interface IFunds{
-    fundName: string;
-    fundPercent: number;
+    name: string;
+    percentage: number;
     value: number;
 }
 

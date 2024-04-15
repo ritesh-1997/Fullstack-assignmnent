@@ -1,1 +1,24 @@
-<p>investmentstatus works!</p>
+<div class="card container">
+    <h2>Investment Status</h2>
+    <div *ngIf="isSuccess; then successTemplate else paymentFailedTemplate">
+    </div>
+  </div>
+  
+  <ng-template #successTemplate>
+    <h1>Investment Successfull</h1>
+    <button class="continue">Continue</button>
+    <br>
+  </ng-template>
+  
+  <ng-template #paymentFailedTemplate>
+    <h1>Investment Failed</h1>
+    <div>
+        <div>
+            <button class="continue" (click)="backToHome()">Continue</button>
+        </div>
+        <div>
+            <button class="retry" (click)="retryInvestement()">Retry</button>
+        </div>
+    </div>
+    
+  </ng-template>

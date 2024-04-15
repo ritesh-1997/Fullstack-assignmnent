@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.api_controller
 {
     [ApiController]
-    [AuthenticateUser]
     [Route("api/[controller]/[action]")]
     public class OrderController : ControllerBase
     {
@@ -22,8 +21,13 @@ namespace backend.api_controller
 
         }
         [HttpPost]
-        public async Task<IActionResult> GetHolding([FromBody] HoldingsRequest holdingsRequest)
+        public async Task<IActionResult> GetHolding([FromBody] HoldingsRequest holdingsRequest, [FromHeader] string authorization)
         {
+            var isuser = await new backend.Middleware.CheckUser(_configuration).IsValidUser(authorization);
+            if (!isuser)
+            {
+                return Unauthorized();
+            }
             if (holdingsRequest == null)
                 return BadRequest("The request is null");
             if (string.IsNullOrWhiteSpace(holdingsRequest.phoneNumber))
@@ -36,8 +40,13 @@ namespace backend.api_controller
         }
 
         [HttpPost("{phoneNumber}")]
-        public async Task<IActionResult> GetHoldings(string phoneNumber)
+        public async Task<IActionResult> GetHoldings(string phoneNumber, [FromHeader] string authorization)
         {
+            var isuser = await new backend.Middleware.CheckUser(_configuration).IsValidUser(authorization);
+            if (!isuser)
+            {
+                return Unauthorized();
+            }
             if (string.IsNullOrWhiteSpace(phoneNumber))
                 return BadRequest("The request is null");
 

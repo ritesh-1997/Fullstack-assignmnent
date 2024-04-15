@@ -24,7 +24,7 @@ namespace backend.Common.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(Configuration.GetConnectionString("DefaultLocalConnection"));
+            optionsBuilder.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
         }
 
     }

@@ -16,8 +16,8 @@ namespace backend.Common.Models
     public class Fund
     {
         public string Name { get; set; }
-        public int Percentage { get; set; }
-        public int Value { get; set; }
+        public double Percentage { get; set; }
+        public double Value { get; set; }
     }
 
 }
