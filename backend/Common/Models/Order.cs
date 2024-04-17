@@ -44,8 +44,8 @@ public class InvestmentDetails
     public decimal PricePerUnit { get; set; }
     public string Status { get; set; }
     public string PaymentId { get; set; }
-    public DateTime SubmittedAt { get; set; }
-    public DateTime SucceededAt { get; set; }
+    public DateTime? SubmittedAt { get; set; }
+    public DateTime? SucceededAt { get; set; }
     public DateTime? FailedAt { get; set; } // Nullable DateTime to handle potential null value for failedAt
 }
 
@@ -74,7 +74,7 @@ public class HoldingsResponse
     public string strategyName { get; set; }
     public double investmentAmount { get; set; }
     public double investmentMarketValue { get; set; }
-    public List<HoldingDetails> holdingDetails { get; set; }
+    public List<HoldingDetails> holdingDetails { get; set; } = new List<HoldingDetails>();
 }
 
 public class HoldingDetails
@@ -82,4 +82,18 @@ public class HoldingDetails
     public string fundName { get; set; }
     public double investmentAmount { get; set; }
     public double marketValue { get; set; }
+}
+
+public class Investment
+{
+    public int count { get; set; }
+    public List<StrategyInvestment> data { get; set; } = new List<StrategyInvestment>();
+    public bool success { get; set; }
+}
+
+public class StrategyInvestment
+{
+    public string strategyName { get; set; }
+    public string fundName { get; set; }
+    public bool success { get; set; }
 }

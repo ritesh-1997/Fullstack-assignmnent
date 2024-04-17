@@ -38,3 +38,14 @@ export interface IUserHoldingsRequest{
     investmentAmount: number; // Use number for monetary values in Angular
     marketValue: number;
   }
+
+export interface IInvestment{
+  count: number,
+  data: IFundsInvestment[],
+  success: boolean,
+}
+  export interface IFundsInvestment {
+    strategyName: string;
+    fundName: string;
+    success: boolean; 
+  }

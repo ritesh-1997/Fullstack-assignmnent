@@ -9,6 +9,7 @@ public class MutualFundOrderTBL
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int orderid { get; set; }
     public string orderGuid { get; set; }
+    public string phoneNumber { get; set; }
     public string fundName { get; set; }
     public string paymentid { get; set; }
     public double amount { get; set; }

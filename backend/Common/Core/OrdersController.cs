@@ -21,13 +21,14 @@ namespace backend.Common.Core
             _client = client;
             _configuration = configuration;
         }
-        public async Task<bool> BuyStrategy()
+        public async Task<Investment> BuyStrategy(string phonenNumber)
         {
+            var response = new Investment();
             try
             {
                 // get failed payments
                 using var context = new Context(_configuration);
-                var payments = await context.PaymentTBL.Where(x => !x.status && !x.isTried).ToListAsync();
+                var payments = await context.PaymentTBL.Where(x => !x.status && !x.isTried && x.phoneNumber == phonenNumber).ToListAsync();
                 foreach (var payment in payments)
                 {
                     var paymentResponse = await new PaymentController(_client, _configuration).GetPaymentDetails(payment.paymentid);
@@ -60,25 +61,35 @@ namespace backend.Common.Core
                                     units = fundResponse.Data.Units,
                                     status = fundResponse.Data.SucceededAt != null ? true : false,
                                     pricePerUnit = fundResponse.Data.PricePerUnit,
+                                    phoneNumber = phonenNumber,
                                 };
+
+                                var order = new StrategyInvestment()
+                                {
+                                    strategyName = payment.strategyName,
+                                    fundName = fundResponse.Data.Fund,
+                                    success = investment.status
+                                };
+
+                                response.data.Add(order);
                                 context.MutualFundOrderTBL.Add(investment);
                             }
                         }
                     }
                     payment.isTried = true;
 
-
-
                 }
                 context.UpdateRange(payments);
                 await context.SaveChangesAsync();
-                return true;
+                response.count = response.data.Count;
+                response.success = true;
+                return response;
 
             }
             catch (System.Exception ex)
             {
-
-                return false;
+                response.success = false;
+                return response;
             }
 
 
@@ -95,7 +106,7 @@ namespace backend.Common.Core
 
             try
             {
-                var response = await _client.PostAsync(urlDocker, data);
+                var response = await _client.PostAsync(url, data);
 
                 response.EnsureSuccessStatusCode(); // Throw exception for non-200 status codes
 
@@ -117,7 +128,7 @@ namespace backend.Common.Core
                 var url = $"http://localhost:8081/market-value/{fundName}";
                 var urlDocker = $"http://host.docker.internal:8081/market-value/{fundName}";
                 Console.WriteLine(url);
-                var response = await _client.GetAsync(urlDocker);
+                var response = await _client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -144,7 +155,7 @@ namespace backend.Common.Core
                 var url = $"http://localhost:8081/order/{orderGuid}";
                 var urlDocker = $"http://host.docker.internal:8081//order/{orderGuid}";
                 Console.WriteLine(url);
-                var response = await _client.GetAsync(urlDocker);
+                var response = await _client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -164,15 +175,18 @@ namespace backend.Common.Core
             }
         }
 
-        public async Task CheckAndUpdateFailedStrategyOrder()
+        public async Task<Investment> CheckAndUpdateFailedStrategyOrder(string phoneNumber)
         {
+            var response = new Investment();
             try
             {
                 using var context = new Context(_configuration);
-                var funds = await context.MutualFundOrderTBL.Where(x => x.status == false).ToListAsync();
+                var funds = await context.MutualFundOrderTBL.Where(x => x.status == false && x.phoneNumber == phoneNumber).ToListAsync();
                 foreach (var fund in funds)
                 {
                     var res = await GetFundDetails(fund.orderGuid);
+                    if (res == null)
+                        continue;
                     if (res.Status.ToLower() == "succeeded")
                     {
                         fund.status = true;
@@ -182,19 +196,30 @@ namespace backend.Common.Core
                     }
                     else
                     {
+                        fund.status = false;
                         fund.updatedDate = DateTime.UtcNow;
                         fund.failedAt = res.FailedAt;
                         fund.succeededAt = res.SucceededAt;
                     }
+                    var strategy = new StrategyInvestment()
+                    {
+                        strategyName = "",
+                        fundName = fund.fundName,
+                        success = fund.status,
+
+                    };
+                    response.data.Add(strategy);
                 }
                 context.UpdateRange(funds);
                 await context.SaveChangesAsync();
+                response.success = true;
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
 
-                throw;
+                response.success = false;
             }
+            return response;
         }
     }
 }

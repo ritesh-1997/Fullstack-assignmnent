@@ -1,12 +1,12 @@
-<div class="card container">
+<div class="card container" *ngIf="isSuccess">
     <h2>Investment Status</h2>
-    <div *ngIf="isSuccess; then successTemplate else paymentFailedTemplate">
+    <div *ngIf="countOfSucessfulFund>0; then successTemplate else paymentFailedTemplate">
     </div>
   </div>
   
   <ng-template #successTemplate>
     <h1>Investment Successfull</h1>
-    <button class="continue">Continue</button>
+    <button class="continue" (click)="backToHome()">Continue</button>
     <br>
   </ng-template>
   

@@ -17,6 +17,7 @@ namespace backend.Common.Models
     {
         public string PaymentLink { get; set; }
         public bool Success { get; set; }
+        public string ErrorMessage { get; set; }
     }
 
 

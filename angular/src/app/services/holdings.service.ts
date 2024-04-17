@@ -15,6 +15,5 @@ export class HoldingsService {
   }
   getHolding(payload:any):Observable<IHoldingsResponse[]>{
     return this.http.post<IHoldingsResponse[]>(`http://localhost:5151/api/order/GetHolding`,payload);
-
   }
 }

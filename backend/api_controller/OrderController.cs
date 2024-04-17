@@ -52,12 +52,11 @@ namespace backend.api_controller
 
 
             var res = await new backend.Common.Core.HoldingsController(_client, _configuration).GetUserHoldings(phoneNumber);
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(res));
             return Ok(res);
         }
 
         [HttpPost]
-        public async Task<IActionResult> BuyStrategyFund([FromHeader] string authorization)
+        public async Task<IActionResult> BuyStrategyFunds([FromHeader] string authorization)
         {
             var isuser = await new backend.Middleware.CheckUser(_configuration).IsValidUser(authorization);
             if (!isuser)
@@ -65,8 +64,7 @@ namespace backend.api_controller
                 return Unauthorized();
             }
 
-            var res = await new backend.Common.Core.OrdersController(_client, _configuration).BuyStrategy();
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(res));
+            var res = await new backend.Common.Core.OrdersController(_client, _configuration).BuyStrategy(authorization);
             return Ok(res);
         }
 
@@ -79,8 +77,7 @@ namespace backend.api_controller
                 return Unauthorized();
             }
 
-            var res = await new backend.Common.Core.OrdersController(_client, _configuration).BuyStrategy();
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(res));
+            var res = await new backend.Common.Core.OrdersController(_client, _configuration).CheckAndUpdateFailedStrategyOrder(authorization);
             return Ok(res);
         }
     }

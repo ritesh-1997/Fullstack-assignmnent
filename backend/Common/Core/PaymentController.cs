@@ -23,6 +23,7 @@ namespace backend.Common.Core
         }
         public async Task<PaymentResponse> CreatePayment(Strategy strategy, string phoneNumber)
         {
+            var paymentResponse = new PaymentResponse();
             try
             {
                 using var context = new Context(_configuration);
@@ -33,53 +34,55 @@ namespace backend.Common.Core
                     AccountNumber = "11200222",
                     IfscCode = "UBIT22222",
                     Amount = strategy.Amount,
-                    RedirectUrl = "http://localhost:4200/home"
+                    RedirectUrl = "http://localhost:4200/investment"
 
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(paymentRequest), Encoding.UTF8, "application/json");
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await _client.PostAsync(urlDocker, content);
+                var response = await _client.PostAsync(url, content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    var paymentResponse = JsonConvert.DeserializeObject<PaymentResponse>(responseString);
+                    paymentResponse = JsonConvert.DeserializeObject<PaymentResponse>(responseString);
                     var paymentId = paymentResponse.PaymentLink.Split('/').LastOrDefault();
                     var payment = new PaymentTBL()
                     {
                         paymentid = paymentId,
                         phoneNumber = phoneNumber,
                         amount = strategy.Amount,
-                        status = paymentResponse.Success,
+                        status = false,
                         strategyName = strategy.Name,
+                        utr = "",
+                        isTried = false,
                     };
                     context.PaymentTBL.Add(payment);
 
                     //buy the funds and its unit
-                    foreach (var fund in strategy.Funds)
-                    {
-                        var investmentRequest = new InvestmentRequest();
-                        investmentRequest.Fund = fund.Name;
-                        investmentRequest.Amount = fund.Value;
-                        investmentRequest.PaymentId = paymentId;
-                        var fundResponse = await new Core.OrdersController(_client, _configuration).BuyFunds(investmentRequest);
-                        if (fundResponse != null)
-                        {
-                            // save the funds and its unit
-                            var investment = new MutualFundOrderTBL()
-                            {
-                                paymentid = paymentId,
-                                orderGuid = fundResponse.Data.Id,
-                                fundName = fundResponse.Data.Fund,
-                                amount = fundResponse.Data.Amount,
-                                units = fundResponse.Data.Units,
-                                status = fundResponse.Data.SucceededAt != null ? true : false,
-                                pricePerUnit = fundResponse.Data.PricePerUnit,
-                            };
-                            context.MutualFundOrderTBL.Add(investment);
-                        }
-                    }
+                    // foreach (var fund in strategy.Funds)
+                    // {
+                    //     var investmentRequest = new InvestmentRequest();
+                    //     investmentRequest.Fund = fund.Name;
+                    //     investmentRequest.Amount = fund.Value;
+                    //     investmentRequest.PaymentId = paymentId;
+                    //     var fundResponse = await new Core.OrdersController(_client, _configuration).BuyFunds(investmentRequest);
+                    //     if (fundResponse != null)
+                    //     {
+                    //         // save the funds and its unit
+                    //         var investment = new MutualFundOrderTBL()
+                    //         {
+                    //             paymentid = paymentId,
+                    //             orderGuid = fundResponse.Data.Id,
+                    //             fundName = fundResponse.Data.Fund,
+                    //             amount = fundResponse.Data.Amount,
+                    //             units = fundResponse.Data.Units,
+                    //             status = fundResponse.Data.SucceededAt != null ? true : false,
+                    //             pricePerUnit = fundResponse.Data.PricePerUnit,
+                    //         };
+                    //         context.MutualFundOrderTBL.Add(investment);
+                    //     }
+                    // }
 
 
                     await context.SaveChangesAsync();
@@ -87,15 +90,17 @@ namespace backend.Common.Core
                 }
                 else
                 {
-                    throw new HttpRequestException($"Error sending payment request: {response.StatusCode}");
+                    paymentResponse.ErrorMessage = $"Error sending payment request: {response.StatusCode}";
+                    paymentResponse.Success = false;
                 }
             }
             catch (System.Exception ex)
             {
+                paymentResponse.ErrorMessage = $"Error : {ex.Message}";
+                paymentResponse.Success = false;
 
-                throw;
             }
-            return null;
+            return paymentResponse;
 
         }
 
@@ -106,7 +111,7 @@ namespace backend.Common.Core
                 var url = $"http://localhost:8080/payment/{paymentId}";
                 var urlDocker = $"http://host.docker.internal:8080/payment/{paymentId}";
                 Console.WriteLine(url);
-                var response = await _client.GetAsync(urlDocker);
+                var response = await _client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
