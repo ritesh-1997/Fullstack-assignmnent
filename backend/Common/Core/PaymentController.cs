@@ -33,7 +33,7 @@ namespace backend.Common.Core
                     AccountNumber = "11200222",
                     IfscCode = "UBIT22222",
                     Amount = strategy.Amount,
-                    RedirectUrl = "http://localhost:3000"
+                    RedirectUrl = "http://localhost:4200/home"
 
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(paymentRequest), Encoding.UTF8, "application/json");
@@ -51,20 +51,19 @@ namespace backend.Common.Core
                         paymentid = paymentId,
                         phoneNumber = phoneNumber,
                         amount = strategy.Amount,
-                        status = true,
+                        status = paymentResponse.Success,
                         strategyName = strategy.Name,
-
                     };
                     context.PaymentTBL.Add(payment);
 
-                    // buy the funds and its unit
+                    //buy the funds and its unit
                     foreach (var fund in strategy.Funds)
                     {
                         var investmentRequest = new InvestmentRequest();
                         investmentRequest.Fund = fund.Name;
                         investmentRequest.Amount = fund.Value;
                         investmentRequest.PaymentId = paymentId;
-                        var fundResponse = await new Core.OrdersController(_client).BuyFunds(investmentRequest);
+                        var fundResponse = await new Core.OrdersController(_client, _configuration).BuyFunds(investmentRequest);
                         if (fundResponse != null)
                         {
                             // save the funds and its unit
@@ -81,6 +80,8 @@ namespace backend.Common.Core
                             context.MutualFundOrderTBL.Add(investment);
                         }
                     }
+
+
                     await context.SaveChangesAsync();
                     return paymentResponse;
                 }
@@ -96,6 +97,33 @@ namespace backend.Common.Core
             }
             return null;
 
+        }
+
+        public async Task<PaymentIdResponse> GetPaymentDetails(string paymentId)
+        {
+            try
+            {
+                var url = $"http://localhost:8080/payment/{paymentId}";
+                var urlDocker = $"http://host.docker.internal:8080/payment/{paymentId}";
+                Console.WriteLine(url);
+                var response = await _client.GetAsync(urlDocker);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var contentString = await response.Content.ReadAsStringAsync();
+                    // Assuming the response body is a JSON string containing the market value
+                    return JsonConvert.DeserializeObject<PaymentIdResponse>(contentString);
+                }
+                else
+                {
+                    throw new Exception($"Failed to fetch market value. Status code: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching market value: {ex.Message}");
+                return null; // Re-throw the exception for further handling (optional)
+            }
         }
     }
 }

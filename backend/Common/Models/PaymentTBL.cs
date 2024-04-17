@@ -19,6 +19,9 @@ namespace backend.Common.Models
         public string paymentid { get; set; }
         public string phoneNumber { get; set; }
         public string strategyName { get; set; }
+        public string utr { get; set; }
+        public bool isTried { get; set; } = false;
+
 
     }
 }

@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './investmentstatus.component.css'
 })
 export class InvestmentstatusComponent implements OnInit  {
+phoneNumber: string = '';
 constructor(private route: ActivatedRoute,
   private router: Router,){
 
@@ -24,6 +25,11 @@ retryInvestement(){
   this.router.navigate(['/transact']);
 }
 ngOnInit() {
+  this.phoneNumber = localStorage.getItem('Authorization')?.toString() || '';
+
+    if(this.phoneNumber==''){
+      this.router.navigate(['/login']);
+    }
   this.route.queryParams.subscribe((param: any) => {
     console.log(param);
     if(param.success){

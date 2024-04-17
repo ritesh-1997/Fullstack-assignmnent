@@ -36,11 +36,12 @@ namespace backend.Common.Core
                 holdingsResponse.strategyName = strategyName;
                 foreach (var payment in payments)
                 {
-                    var funds = await context.MutualFundOrderTBL.Where(x => x.paymentid == payment.paymentid)
+                    var funds = await context.MutualFundOrderTBL.Where(x => x.paymentid == payment.paymentid && x.status == true)
                                                                     .ToListAsync();
+
                     foreach (var fund in funds)
                     {
-                        var marketValue = await new Core.OrdersController(_client).GetFundMarketValue(fund.fundName);
+                        var marketValue = await new Core.OrdersController(_client,_configuration).GetFundMarketValue(fund.fundName);
 
                         if (marketValue == null)
                             continue;

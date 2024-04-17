@@ -55,6 +55,34 @@ namespace backend.api_controller
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(res));
             return Ok(res);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> BuyStrategyFund([FromHeader] string authorization)
+        {
+            var isuser = await new backend.Middleware.CheckUser(_configuration).IsValidUser(authorization);
+            if (!isuser)
+            {
+                return Unauthorized();
+            }
+
+            var res = await new backend.Common.Core.OrdersController(_client, _configuration).BuyStrategy();
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(res));
+            return Ok(res);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FetchInvestmentDetails([FromHeader] string authorization)
+        {
+            var isuser = await new backend.Middleware.CheckUser(_configuration).IsValidUser(authorization);
+            if (!isuser)
+            {
+                return Unauthorized();
+            }
+
+            var res = await new backend.Common.Core.OrdersController(_client, _configuration).BuyStrategy();
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(res));
+            return Ok(res);
+        }
     }
 
 

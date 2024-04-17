@@ -16,13 +16,33 @@ public class UserInvestmentController
         try
         {
             string jsonData = File.ReadAllText("./strategies.json");
-            strategies = JsonConvert.DeserializeObject<List<Strategy>>(jsonData); // Or JsonSerializer.Deserialize for .NET Core 3.1+
+            strategies = JsonConvert.DeserializeObject<List<Strategy>>(jsonData);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error deserializing JSON: {ex.Message}");
-            strategies = null; // Handle the error as needed, potentially exiting the program
+            strategies = null;
         }
         return strategies;
+    }
+
+    public async Task<Strategy> GetStrategy(string strategyName)
+    {
+
+        List<Strategy> strategies;
+
+        try
+        {
+
+            strategies = await Stratagies();
+            var strategy = strategies.FirstOrDefault(x=>x.Name == strategyName);
+            return strategy;
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deserializing JSON: {ex.Message}");
+        }
+        return null;
     }
 }

@@ -81,15 +81,21 @@ export class TransactComponent implements OnInit{
       this.getSelectedStrategy(event.value);
     }
   }
-
+  
   invest(){
     this.investService.invest(this.strategyInvestment).subscribe((response:any)=>{
       
-      if(response.success==true||response.success==false)
-        this.router.navigate(['/transaction'],{ queryParams: { isSuccess: response.success, paymentLink: response.paymentLink } });
+      if(response.success==true||response.success==false){
+        this.navigateToExternalUrl(response.paymentLink);
+      }
+        // this.router.navigate(['/transaction'],{ queryParams: { isSuccess: response.success, paymentLink: response.paymentLink } });
       this.changeDetector.detectChanges();
     });
   }
+
+  navigateToExternalUrl(url: string) {
+    window.location.href = url; // Redirects the current tab
+}
   allowedChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
 
   @ViewChild('numberInputRef')

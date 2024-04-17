@@ -29,6 +29,11 @@ export class HoldingsComponent implements OnInit {
   strategyName:string = '';
   phoneNumber:string = '';
   ngOnInit(){
+    this.phoneNumber = localStorage.getItem('Authorization')?.toString() || '';
+
+    if(this.phoneNumber==''){
+      this.router.navigate(['/login']);
+    }
     this.route.queryParams.subscribe((param: any) => {
       console.log(param);
       this.strategyName = param.strategyName,

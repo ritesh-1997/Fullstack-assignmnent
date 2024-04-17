@@ -22,10 +22,15 @@
         <p>This is where you can display additional information about the transaction.</p>
         <div *ngIf="isSuccess; then successTemplate else paymentFailedTemplate">
         </div>
+        <br>
+        <br>
+        <button class="home" (click) ="backToHome()" >Home</button>
       </div>
       
       <ng-template #successTemplate>
         <button class="successfull">Payment Successfull</button>
+        <br>
+        <span class="">Payment Link: <a [href]="pspReference">Link</a></span>
         <br>
         <span class="">Payment Link : {{pspReference}}</span>
       </ng-template>

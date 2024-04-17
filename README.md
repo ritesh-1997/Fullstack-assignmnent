@@ -4,10 +4,8 @@ cd angular
 npm i
 npm run start
 
+# backend
+
 cd backend
-docker network create -d bridge my-network
-
-
-
-docker build -t backend4 .
- 1085  docker run -p 5152:80 -v ./mydatabase.db:/app/Data backend4
+docker build -t backend .
+docker run -p 5151:80 -v ./mydatabase.db:/app/Data backend

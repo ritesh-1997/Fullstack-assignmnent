@@ -7,12 +7,14 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { InvestmentstatusComponent } from './investmentstatus/investmentstatus.component';
 
 export const routes: Routes = [
+    
     {path: '', component: LoginComponent},
     {path: 'login', component: LoginComponent},
     {path: 'home', component: HomeComponent},
     {path: 'holding', component: HoldingsComponent},
     {path: 'transact', component: TransactComponent},
     {path: 'transaction', component: TransactionsComponent},
-    {path: 'investment', component: InvestmentstatusComponent}
+    {path: 'investment', component: InvestmentstatusComponent},
+    { path: '**', redirectTo: 'home', pathMatch: 'full' },
     
   ];
